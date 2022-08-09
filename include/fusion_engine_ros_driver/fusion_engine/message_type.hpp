@@ -2,7 +2,7 @@
 #define FUSION_ENGINE_MESSAGE_TYPE_HPP
 
 namespace fusion_engine {
-    
+
 /**
  * @breif FusionEngine message type definitions.
  */

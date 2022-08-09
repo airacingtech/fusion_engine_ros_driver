@@ -6,17 +6,17 @@ import os
 
 def generate_launch_description():
 
-    bringup_dir = get_package_share_directory('point_one_gps_driver')
+    bringup_dir = get_package_share_directory('fusion_engine_ros_driver')
 
     param_file_path = os.path.join(
         bringup_dir,
         'param',
-        'point_one_gps_driver.param.yaml'
+        'fusion_engine_ros_driver.param.yaml'
     )
     
     gps_node = Node(
-        package='point_one_gps_driver',
-        executable='point_one_gps_driver_node_exe',
+        package='fusion_engine_ros_driver',
+        executable='fusion_engine_ros_driver_node_exe',
         output='screen',
         parameters=[
             param_file_path

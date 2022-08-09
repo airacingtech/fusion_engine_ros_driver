@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(point_one_gps_driver)
+project(fusion_engine_ros_driver)
 
 include(ExternalProject)
 
@@ -19,7 +19,7 @@ ament_auto_find_build_dependencies(REQUIRED
 )
 
 set(${PROJECT_NAME}_SRC
-  src/point_one_gps_node.cpp
+  src/fusion_engine_ros_driver_node.cpp
 )
 
 # Create this project as an executable.

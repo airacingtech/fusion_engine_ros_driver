@@ -3,7 +3,9 @@
 
 namespace fusion_engine {
 
-/** Type of trasnport layer protocol being used in network connection. */
+/** 
+ * @brief Type of transport layer protocol being used in network connection.
+ */
 enum class ConnectionType {
   UDP = 0,
   TCP = 1,

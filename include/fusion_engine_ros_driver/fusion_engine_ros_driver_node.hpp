@@ -24,14 +24,16 @@ void messageReceived(const messages::MessageHeader&, const void*);
 }
 } // namespace point_one
 
-/*
- * ROS2 Driver that runs Fusion Engine Client and publishes it into the
+/**
+ * @brief ROS2 Driver for Fusion Engine Client
+ * 
+ * This class runs the Fusion Engine Client and publishes it into the
  * ROS2 framework
  */
 class FusionEngineDriver : public fusion_engine::ByteFrameListener {
  public:
   /**
-   * Singleton object. Only one FusionEngine message parser is necessary.
+   * @brief Singleton object. Only one FusionEngine message parser is necessary.
    */
   static FusionEngineDriver& getInstance() {
     static FusionEngineDriver
@@ -39,12 +41,12 @@ class FusionEngineDriver : public fusion_engine::ByteFrameListener {
     return instance;
   }
 
-  /** Illegal operations for singleton object. */
+  /** @brief Illegal operations for singleton object. */
   FusionEngineDriver(FusionEngineDriver const&) = delete;
   void operator=(FusionEngineDriver const&) = delete;
 
   /**
-   * Initialize needed to set a ros envoronment for logging output.
+   * @brief Initialize needed to set a ros envoronment for logging output.
    * @param node Link to ROS environment.
    * @return Nothing.
    */
@@ -55,7 +57,7 @@ class FusionEngineDriver : public fusion_engine::ByteFrameListener {
   }
 
   /**
-   * Adds an event listener to be notified for every gps message received.
+   * @brief Adds an event listener to be notified for every gps message received.
    * @param listener object to be notified for gps message received.
    * @return Nothing.
    */
@@ -64,7 +66,7 @@ class FusionEngineDriver : public fusion_engine::ByteFrameListener {
   }
 
   /**
-   * Removes byte frame listener.
+   * @brief Removes byte frame listener.
    * @param listener Byte frame listener to remove.
    * @return Removal success state.
    */
@@ -80,7 +82,7 @@ class FusionEngineDriver : public fusion_engine::ByteFrameListener {
   }
 
   /**
-   * Callback function for every new parsed message received from FusionEngine.
+   * @brief Callback function for new parsed messages from FusionEngine.
    * @param header Metadata on payload.
    * @param payload_in Message received.
    * @return Nothing.
@@ -117,7 +119,7 @@ class FusionEngineDriver : public fusion_engine::ByteFrameListener {
   }
 
   /**
-   * Callback function for every new byte frame received from FusionEngine.
+   * @brief Callback function for every new byte frame received from FusionEngine.
    * @note Inherited from fusion_engine::ByteFrameListener interface.
    * @param evt Wrapper that holds the byte frame data recieved.
    * @return Nothing.
@@ -127,7 +129,7 @@ class FusionEngineDriver : public fusion_engine::ByteFrameListener {
   }
 
   /**
-   * Main service to receive gps data from FusionEngine.
+   * @brief Main service to receive gps data from FusionEngine.
    * @return Nothing.
    */
   void service() {
@@ -150,14 +152,17 @@ class FusionEngineDriver : public fusion_engine::ByteFrameListener {
   FusionEngineClient& recv;
   rclcpp::Node* node_;
 
-  /* Only one instance will exist - singleton object. */
+  /**
+   * @brief Only one instance will exist - singleton object
+   * 
+   */
   FusionEngineDriver() : framer(1024), recv(FusionEngineClient::getInstance()) {
     recv.addByteFrameListener(*this);
     framer.SetMessageCallback(point_one::fusion_engine::messageReceived);
   }
 
   /**
-   * Notifies all fusion_engine::MessageListeners of a newly recieved gps message.
+   * @brief Notifies all fusion_engine::MessageListeners of a newly recieved gps message.
    * @param evt data sent to listeners.
    * @return Nothing.
    */
@@ -168,7 +173,6 @@ class FusionEngineDriver : public fusion_engine::ByteFrameListener {
   }
 };
 
-// annoying
 namespace point_one {
 namespace fusion_engine {
 void messageReceived(const messages::MessageHeader& header,

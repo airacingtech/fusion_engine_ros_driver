@@ -6,12 +6,12 @@
 namespace fusion_engine {
 
 /**
- * Abstract interface for clients listening to byte frames.
+ * @brief Abstract interface for clients listening to byte frames.
  */
 class ByteFrameListener {
  public:
   /**
-   * Triggers when Point One Gps internal port receives a byte frame.
+   * @brief Triggers when Point One Gps internal port receives a byte frame.
    * @param evt Event that wraps the message data received.
    */
   virtual void receivedFusionEngineByteFrame(ByteFrameEvent& evt) = 0;

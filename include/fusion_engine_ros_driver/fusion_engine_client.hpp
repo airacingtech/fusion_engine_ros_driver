@@ -26,7 +26,7 @@
 class FusionEngineClient {
  public:
   /**
-   * Singleton object. Only one message parser is necessary.
+   * @brief Singleton object. Only one message parser is necessary.
    * @return static reference to single FusionEngineClient instance.
    */
   static FusionEngineClient& getInstance() {
@@ -34,12 +34,15 @@ class FusionEngineClient {
     return instance;
   }
 
-  /* Illegal singleton copy operations */
+  /**
+   * @brief Illegal singleton copy operations
+   * 
+   */
   FusionEngineClient(FusionEngineClient const&) = delete;
   void operator=(FusionEngineClient const&) = delete;
 
   /**
-   * Initialize needed to set a ros envoronment for logging output.
+   * @brief Initialize needed to set a ros envoronment for logging output.
    * @param node link to ros environment.
    * @return Nothing.
    */
@@ -53,7 +56,7 @@ class FusionEngineClient {
   }
 
   /**
-   * Adds an event listener to be notified for every byte frames received.
+   * @brief Adds an event listener to be notified for every byte frames received.
    * @param listener Listener to be notified for byte frames received.
    * @return Nothing.
    */
@@ -62,7 +65,7 @@ class FusionEngineClient {
   }
 
   /**
-   * Removes byte frame listener.
+   * @brief Removes byte frame listener.
    * @param listener Byte frame listener to remove.
    * @return Removal success state.
    */
@@ -77,7 +80,7 @@ class FusionEngineClient {
   }
 
   /**
-   * Read udp input stream from the Point One Nav until this
+   * @brief Read udp input stream from the Point One Nav until this
    * system has shut down or this node is killed.
    * @return Nothing.
    */
@@ -120,7 +123,7 @@ class FusionEngineClient {
   }
 
   /**
-   * Read tcp input stream from the Point One Nav until this
+   * @brief Read tcp input stream from the Point One Nav until this
    * system has shut down or this node is killed.
    * @return Nothing.
    */
@@ -152,7 +155,7 @@ class FusionEngineClient {
   }
 
   /**
-   * Getter for type of network transport layer protocol (udp/tcp).
+   * @brief Getter for type of network transport layer protocol (udp/tcp).
    * @return String identification of connection type protocol.
    */
   std::string get_connection_type() { return connection_type_; }
@@ -170,7 +173,7 @@ class FusionEngineClient {
   FusionEngineClient() {}
 
   /**
-   * Notifies all fusion_engine::ByteFrameListeners of a newly recieved byte frame.
+   * @brief Notifies all fusion_engine::ByteFrameListeners of a newly recieved byte frame.
    * @param evt Raw byte frame recieved along with its byte size.
    * @return Nothing.
    */
@@ -181,7 +184,7 @@ class FusionEngineClient {
   }
 
   /**
-   * Creates and binds to a UDP network socket.
+   * @brief Creates and binds to a UDP network socket.
    * @return status code 0 on success, non-zero otherwise.
    */
   int open_udp_socket() {
@@ -207,7 +210,7 @@ class FusionEngineClient {
   }
 
   /**
-   * Creates and connects to a tcp network socket.
+   * @brief Creates and connects to a tcp network socket.
    * @return status code 0 on success, non-zero otherwise.
    */
   int open_tcp_socket() {
@@ -243,7 +246,7 @@ class FusionEngineClient {
   }
 
   /**
-   * IPv4 and IPv5 address resolution.
+   * @brief IPv4 and IPv5 address resolution.
    * @param sa socket address.
    * @return Resolved ip address.
    */

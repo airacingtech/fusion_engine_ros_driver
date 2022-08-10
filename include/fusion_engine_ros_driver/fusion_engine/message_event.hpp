@@ -10,7 +10,7 @@
 namespace fusion_engine {
 
 /**
- * Data class that wraps message data in a generic object.
+ * @brief Data class that wraps message data in a generic object.
  */
 class MessageEvent {
  public:
@@ -20,15 +20,35 @@ class MessageEvent {
   geometry_msgs::msg::PoseStamped pose;
   MessageType message_type;
 
+  /**
+   * @brief Construct a new Message Event object
+   * 
+   * @param gps_fix_ GPS Fix Message
+   */
   MessageEvent(gps_msgs::msg::GPSFix gps_fix_)
       : gps_fix(gps_fix_), message_type(MessageType::GPS_FIX) {}
 
+  /**
+   * @brief Construct a new Message Event object
+   * 
+   * @param nav_sat_fix_ NavSat Fix Message
+   */
   MessageEvent(sensor_msgs::msg::NavSatFix nav_sat_fix_)
       : nav_sat_fix(nav_sat_fix_), message_type(MessageType::NAV_SAT_FIX) {}
 
+  /**
+   * @brief Construct a new Message Event object
+   * 
+   * @param imu_ IMU Message
+   */
   MessageEvent(sensor_msgs::msg::Imu imu_)
       : imu(imu_), message_type(MessageType::IMU) {}
 
+  /**
+   * @brief Construct a new Message Event object
+   * 
+   * @param pose_ Pose Message
+   */
   MessageEvent(geometry_msgs::msg::PoseStamped pose_)
       : pose(pose_), message_type(MessageType::POSE) {}
 };

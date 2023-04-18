@@ -1,7 +1,16 @@
-cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(VERSION 3.12)
+
+set(CMAKE_POLICY_DEFAULT_CMP0077 NEW)
+set(P1_FE_BUILD_EXAMPLES OFF)
+
 project(point_one_gps_driver)
 
-include(ExternalProject)
+include(FetchContent)
+
+# Default to C++17
+if(NOT CMAKE_CXX_STANDARD)
+  set(CMAKE_CXX_STANDARD 17)
+endif()
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra)
@@ -27,28 +36,15 @@ ament_auto_add_executable(${PROJECT_NAME}_node_exe
   ${${PROJECT_NAME}_SRC}
 )
 
-# Set location to store external project.
-set(EXTERNAL_INSTALL_LOCATION 
-  ${CMAKE_BINARY_DIR}/p1_fusion_engine_client
+FetchContent_Declare(
+    fusion_engine_client
+    GIT_REPOSITORY https://github.com/PointOneNav/fusion-engine-client.git
+    GIT_TAG origin/master
 )
+FetchContent_Populate(fusion_engine_client)
+add_subdirectory(${fusion_engine_client_SOURCE_DIR})
 
-# Specify external project as a target.
-ExternalProject_Add(project_p1_fusion_engine_client
-  GIT_REPOSITORY https://github.com/PointOneNav/fusion-engine-client.git
-  CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${EXTERNAL_INSTALL_LOCATION}
-  PREFIX ${EXTERNAL_INSTALL_LOCATION}
-)
-
-# Include header files required for external project.
-include_directories(${EXTERNAL_INSTALL_LOCATION}/include)
-
-# Append shared library path to dynamic linker in rpath (runtime search path).
-SET(CMAKE_EXE_LINKER_FLAGS 
-  "${CMAKE_EXE_LINKER_FLAGS} -Wl,-rpath -Wl,${EXTERNAL_INSTALL_LOCATION}/lib"
-)
-
-# Library is not built until there is a dependency.
-add_dependencies(${PROJECT_NAME}_node_exe project_p1_fusion_engine_client)
+include_directories(${fusion_engine_client_SOURCE_DIR}/src)
 
 # Link point_one_gps node to fusion_engine_client library.
 target_link_libraries(${PROJECT_NAME}_node_exe fusion_engine_client)

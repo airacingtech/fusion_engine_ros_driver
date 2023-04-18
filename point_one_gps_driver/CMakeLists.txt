@@ -42,7 +42,7 @@ FetchContent_Declare(
     GIT_TAG origin/master
 )
 FetchContent_Populate(fusion_engine_client)
-add_subdirectory(${fusion_engine_client_SOURCE_DIR})
+add_subdirectory(${fusion_engine_client_SOURCE_DIR} ${fusion_engine_client_BINARY_DIR})
 
 include_directories(${fusion_engine_client_SOURCE_DIR}/src)
 
